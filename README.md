@@ -2,7 +2,7 @@
 
 ### Max Rosenberg
 
-A simple program to measure the number of 8192 byte pages that can fit into my 2015 MacBook Pro's Translation Lookaside Buffer (TLB). This number appears to be between 512 and 1024.
+The main part of this project is `tlb.c`, a C program to measure the number of 8192 byte pages that can fit into my 2015 MacBook Pro's Translation Lookaside Buffer (TLB). This number appears to be between 512 and 1024.
 
 Take a look at the following graph to see how long an average page access takes as number of pages grows.
 
