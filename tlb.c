@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     struct timeval c_start;
     struct timeval c_stop;
 
+    // Intialize memory used to store pages via malloc
     char *a = malloc ((long) PAGE_SIZE * NUM_PAGES);
 
     // Page allocation
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
         a[jump] += 1;
     }
 
-    // Need something to actually use each page reference for
+    // Need something to actually use each page access for
     long total = 0;
 
     gettimeofday(&c_start, 0);
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]) {
         asm("");
         for (int j = 0; j < NUM_PAGES; j++) {
             asm("");
-                // Reference a page
+                // Access a page
                 long jump = (long) j * PAGE_SIZE;
                 total += a[jump];
         }
