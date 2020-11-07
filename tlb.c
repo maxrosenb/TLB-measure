@@ -55,11 +55,11 @@ int main(int argc, char* argv[]) {
 
     // Simple arithmetic to measure access time
     double duration;
-    duration = ((double) (time_stop - time_start));
+    duration = ((double) (time_stop - time_start)); 
 
-    double time_per_access = duration / (NUM_PAGES);
+    double time_per_access_ns = duration / (NUM_PAGES) / (NUM_TRIALS) * 1000;
 
-    printf("%ld\t %f\t \n", NUM_PAGES, time_per_access);
+    printf("%ld\t %f\t \n", NUM_PAGES, time_per_access_ns);
     
     free(a);
     

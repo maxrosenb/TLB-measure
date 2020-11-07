@@ -8,6 +8,6 @@ set logscale x 2
 
 set xlabel "Number of Pages"
 
-set ylabel "Time per Access (us)"
+set ylabel "Time per Access (ns)"
 
 plot "tlb.dat" with linespoints lt rgb "orange"
