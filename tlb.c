@@ -4,21 +4,26 @@
 
 int main(int argc, char* argv[]) {
 
+    if (argc < 3) {
+        printf("Not enough arguments. Aborting.\n");
+        return 1;
+    }
+
+    // Initialize experiment constants
     const int PAGESIZE = 8192;
     const long NUM_PAGES = atoi(argv[1]);
     const long NUM_TRIALS = atoi(argv[2]);
 
     char *a = malloc ((long) PAGESIZE * NUM_PAGES);
 
-
-    // Allocation
+    // Page allocation
     for (int i = 0; i < NUM_PAGES; i++) {
         long jump = (long) i * PAGESIZE;
         // Allocate each page
         a[jump] += 1;
     }
 
-    // Need something to use each reference to each page for    
+    // Need something to actually use each page reference for
     long total = 0;
 
     // Initialize start and stop times
@@ -32,6 +37,7 @@ int main(int argc, char* argv[]) {
         asm("");
         for (int j = 0; j < NUM_PAGES; j++) {
             asm("");
+                // Reference a page
                 long jump = (long) j * PAGESIZE;
                 total += a[jump];
         }
@@ -41,7 +47,9 @@ int main(int argc, char* argv[]) {
 
     double time_start = c_start.tv_usec;
     double time_stop = c_stop.tv_usec;
-    
+
+
+    // Simple arithmetic to measure access time
     double total_time;
     total_time = ((double) (time_stop - time_start));
 
