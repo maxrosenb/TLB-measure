@@ -13,25 +13,25 @@ int main(int argc, char* argv[]) {
     }
 
     // Initialize experiment constants
-    const int PAGESIZE = 8192;
+    const long PAGE_SIZE = 8192;
     const long NUM_PAGES = atoi(argv[1]);
     const long NUM_TRIALS = atoi(argv[2]);
 
-    char *a = malloc ((long) PAGESIZE * NUM_PAGES);
+    // Initialize start and stop times
+    struct timeval c_start;
+    struct timeval c_stop;
+
+    char *a = malloc ((long) PAGE_SIZE * NUM_PAGES);
 
     // Page allocation
     for (int i = 0; i < NUM_PAGES; i++) {
-        long jump = (long) i * PAGESIZE;
+        long jump = (long) i * PAGE_SIZE;
         // Allocate each page
         a[jump] += 1;
     }
 
     // Need something to actually use each page reference for
     long total = 0;
-
-    // Initialize start and stop times
-    struct timeval c_start;
-    struct timeval c_stop;
 
     gettimeofday(&c_start, 0);
 
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
         for (int j = 0; j < NUM_PAGES; j++) {
             asm("");
                 // Reference a page
-                long jump = (long) j * PAGESIZE;
+                long jump = (long) j * PAGE_SIZE;
                 total += a[jump];
         }
     }
@@ -53,10 +53,10 @@ int main(int argc, char* argv[]) {
 
 
     // Simple arithmetic to measure access time
-    double total_time;
-    total_time = ((double) (time_stop - time_start));
+    double duration;
+    duration = ((double) (time_stop - time_start));
 
-    double time_per_access = total_time / (NUM_PAGES);
+    double time_per_access = duration / (NUM_PAGES);
 
     printf("%ld\t %f\t \n", NUM_PAGES, time_per_access);
     
