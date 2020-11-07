@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+// A simple program to measure the number of 8192 byte pages 
+// that can fit into my 2015 MacBook Pro's Translation Lookaside Buffer (TLB).
+// Apparently this is between 512 and 1024 8192 byte pages.
 int main(int argc, char* argv[]) {
 
     if (argc < 3) {
