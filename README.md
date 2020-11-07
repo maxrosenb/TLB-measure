@@ -7,5 +7,7 @@ with a python script for running rather than bash.
 
 Take a look at tlb.png to see how long an average page access took as number of pages grew. The code is commented to provide reasoning for some of the lines of code.
 
+![tlb png](https://github.com/maxrosenb/TLB-measure/blob/main/tlb.png)
+
 ### Installation and Testing
 To test the code, compile `tlb.c` with the makefile by running `make`. The code is simple enough that it will compile regardless of operating system. Then run `python3 run_tlb.py` and the program will print out the time per access for each number of pages created, which increases by powers of 2.
