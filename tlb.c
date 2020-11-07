@@ -18,8 +18,8 @@ int main(int argc, char* argv[]) {
     const long NUM_TRIALS = atoi(argv[2]);
 
     // Initialize start and stop times
-    struct timeval c_start;
-    struct timeval c_stop;
+    struct timeval t1;
+    struct timeval t2;
 
     // Intialize memory used to store pages via malloc
     char *a = malloc ((long) PAGE_SIZE * NUM_PAGES);
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     // Need something to actually use each page access for
     long total = 0;
 
-    gettimeofday(&c_start, 0);
+    gettimeofday(&t1, 0);
 
     for (int i = 0; i < NUM_TRIALS; i++) {
         // Empty asm is to prevent any compiler tricks
@@ -47,17 +47,15 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    gettimeofday(&c_stop, 0);
+    gettimeofday(&t2, 0);
 
-    double time_start = c_start.tv_usec;
-    double time_stop = c_stop.tv_usec;
-
+    const long time_start = t1.tv_usec;
+    const long time_stop = t2.tv_usec;
 
     // Simple arithmetic to measure access time
-    double duration;
-    duration = ((double) (time_stop - time_start)); 
+    const double duration = ((double) (time_stop - time_start)); 
 
-    double time_per_access_ns = duration / (NUM_PAGES) / (NUM_TRIALS) * 1000;
+    const double time_per_access_ns = duration / (NUM_PAGES) / (NUM_TRIALS) * 1000;
 
     printf("%ld\t %f\t \n", NUM_PAGES, time_per_access_ns);
     
